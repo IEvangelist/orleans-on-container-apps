@@ -1,6 +1,11 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT License.
 
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Rewrite;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
+
 namespace Orleans.ShoppingCart.Silo;
 
 public sealed class Startup
@@ -16,18 +21,20 @@ public sealed class Startup
     {
         services.AddMudServices();
 
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
-        services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(connectionString));
-        services.AddDatabaseDeveloperPageExceptionFilter();
-        services.AddDefaultIdentity<IdentityUser>(
-            options => options.SignIn.RequireConfirmedAccount = true)
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+        services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+                .AddMicrosoftIdentityWebApp(
+                    _configuration.GetSection("AzureAdB2C"));
+        services.AddControllersWithViews()
+            .AddMicrosoftIdentityUI();
+
+        services.AddAuthorization(options =>
+        {
+            // By default, all incoming requests will be authorized according to the default policy
+            options.FallbackPolicy = options.DefaultPolicy;
+        });
         services.AddRazorPages();
-        services.AddServerSideBlazor();
-        services.AddScoped<
-            AuthenticationStateProvider,
-            RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
+        services.AddServerSideBlazor()
+            .AddMicrosoftIdentityConsentHandler();
 
         services.AddHttpContextAccessor();
         services.AddSingleton<ShoppingCartService>();
@@ -44,7 +51,6 @@ public sealed class Startup
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
-            app.UseMigrationsEndPoint();
         }
         else
         {
@@ -52,6 +58,15 @@ public sealed class Startup
             app.UseHsts();
         }
 
+        app.UseRewriter(new RewriteOptions().Add(context =>
+        {
+            if (context.HttpContext.Request.Path == "/MicrosoftIdentity/Account/SignedOut")
+            {
+                var host = context.HttpContext.Request.Host;
+                var url = $"{context.HttpContext.Request.Scheme}://{host}/home";
+                context.HttpContext.Response.Redirect(url);
+            }
+        }));
         app.UseHttpsRedirection();
         app.UseStaticFiles();
         app.UseRouting();
