@@ -1,0 +1,26 @@
+﻿<AuthorizeView>
+    <Authorized>
+        <MudMenu Dense=true AnchorOrigin="Origin.BottomLeft"
+                 TransformOrigin="Origin.TopCenter"
+                 Size="Size.Large" LockScroll=true Class="rounded-pill ml-2">
+            <ActivatorContent>
+                <MudAvatar Color="Color.Secondary" Variant="Variant.Filled">
+                    @(context.User?.Identity?.Name?.ToUpper()?[0])
+                </MudAvatar>
+            </ActivatorContent>
+            <ChildContent>
+                <MudMenuItem>
+                    <form method="post" action="Identity/Account/LogOut">
+                        <button type="submit">Log out</button>
+                    </form>
+                </MudMenuItem>
+            </ChildContent>
+        </MudMenu>
+    </Authorized>
+    <NotAuthorized>
+        <MudIconButton Icon="@Icons.Filled.Login"
+            Color="Color.Inherit" Size="Size.Large"
+            Href="Identity/Account/Login" DisableElevation=true
+            Title="Login" Class="rounded-pill" />
+    </NotAuthorized>
+</AuthorizeView>
