@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	<IsTransformWebConfigDisabled>false</IsTransformWebConfigDisabled>
+	<UserSecretsId>bfec2076-c836-41b6-8981-c8a672e6caa7</UserSecretsId>
+	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +22,7 @@
     <PackageReference Include="Microsoft.Orleans.Clustering.AzureStorage" Version="3.6.2" />
     <PackageReference Include="Microsoft.Orleans.Persistence.AzureStorage" Version="3.6.2" />
     <PackageReference Include="Microsoft.Orleans.Server" Version="3.6.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
     <PackageReference Include="MudBlazor" Version="6.0.10" />
   </ItemGroup>
 
