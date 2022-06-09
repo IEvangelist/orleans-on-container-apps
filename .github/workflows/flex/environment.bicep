@@ -26,5 +26,20 @@ resource logs 'Microsoft.OperationalInsights/workspaces@2021-06-01' = {
   }
 }
 
+resource env 'Microsoft.App/managedEnvironments@2022-03-01' = {
+  name: '${resourceGroup().name}env'
+  location: location
+  properties: {
+    appLogsConfiguration: {
+      destination: 'log-analytics'
+      logAnalyticsConfiguration: {
+        customerId: logs.properties.customerId
+        sharedKey: logs.listKeys().primarySharedKey
+      }
+    }
+  }
+}
+
+output id string = env.id
 output appInsightsInstrumentationKey string = appInsights.properties.InstrumentationKey
 output appInsightsConnectionString string = appInsights.properties.ConnectionString

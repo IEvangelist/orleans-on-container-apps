@@ -6,7 +6,7 @@ on:
     - main
 
 env:
-  UNIQUE_APP_NAME: cartify
+  UNIQUE_APP_NAME: orleanscart
   AZURE_RESOURCE_GROUP_NAME: orleans-resourcegroup
   AZURE_RESOURCE_GROUP_LOCATION: centralus
 
