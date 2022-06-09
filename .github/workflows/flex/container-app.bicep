@@ -1,17 +1,17 @@
 param appName string
 param location string
 param containerAppEnvironmentId string
+param repositoryImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
 param envVars array = []
 param minReplicas int = 1
 param maxReplicas int = 10
-param repositoryImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
 param registry string
 param registryUsername string
 @secure()
 param registryPassword string
 
 resource scalerContainerApp 'Microsoft.App/containerApps@2022-03-01' = {
-  name: appName
+  name: '${appName}scaler'
   location: location
   properties: {
     managedEnvironmentId: containerAppEnvironmentId
