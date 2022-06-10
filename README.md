@@ -22,7 +22,7 @@ A canonical shopping cart sample application, built using Microsoft Orleans. Thi
 - [Orleans: Code generation](https://docs.microsoft.com/dotnet/orleans/grains/code-generation)
 - [Orleans: Startup tasks](https://docs.microsoft.com/dotnet/orleans/host/configuration-guide/startup-tasks)
 - [Azure Bicep](https://docs.microsoft.com/azure/azure-resource-manager/bicep)
-- [Azure App Service](https://docs.microsoft.com/azure/app-service/overview)
+- [Azure Container App](https://docs.microsoft.com/azure/container-apps/overview)
 - [GitHub Actions and .NET](https://docs.microsoft.com/dotnet/devops/github-actions-overview)
 
 The app is architected as follows:
