@@ -44,19 +44,6 @@ module storageModule 'storage.bicep' = {
   }
 }
 
-module scalerModule 'scaler-app.bicep' = {
-  name: 'scalerModule'
-  params: {
-    appName: appName
-    location: location
-    containerAppEnvironmentId: env.outputs.id
-    registry: acr.name
-    registryPassword: acr.listCredentials().passwords[0].value
-    registryUsername: acr.listCredentials().username
-    envVars: envVars
-  }
-}
-
 module siloModule 'container-app.bicep' = {
   name: 'orleansSiloModule'
   params: {
@@ -67,7 +54,6 @@ module siloModule 'container-app.bicep' = {
     registryPassword: acr.listCredentials().passwords[0].value
     registryUsername: acr.listCredentials().username
     envVars: envVars
-    scalerUrl: scalerModule.outputs.fqdn
   }
 }
 

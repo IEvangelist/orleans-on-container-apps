@@ -31,6 +31,11 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
           passwordSecretRef: 'container-registry-password'
         }
       ]
+      ingress: {
+        external: true
+        targetPort: 80
+        allowInsecure: false
+      }
     }
     template: {
       containers: [
@@ -43,20 +48,6 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
       scale: {
         minReplicas: minReplicas
         maxReplicas: maxReplicas
-        rules: [
-          {
-            name: 'scaler'
-            custom: {
-              type: 'external'
-              metadata: {
-                scalerAddress: '${scalerUrl}:80'
-                graintype: 'sensortwin'
-                siloNameFilter: 'silo'
-                upperbound: '300'
-              }
-            }
-          }
-        ]
       }
     }
   }
