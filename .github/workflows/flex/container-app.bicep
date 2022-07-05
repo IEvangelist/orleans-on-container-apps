@@ -31,7 +31,7 @@ resource scalerContainerApp 'Microsoft.App/containerApps@2022-03-01' = {
         }
       ]
       ingress: {
-        external: false
+        external: true
         targetPort: 80
         allowInsecure: true
         transport: 'http2'
