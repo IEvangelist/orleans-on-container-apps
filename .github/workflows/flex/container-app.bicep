@@ -31,7 +31,7 @@ resource scalerContainerApp 'Microsoft.App/containerApps@2022-03-01' = {
         }
       ]
       ingress: {
-        external: true
+        external: false
         targetPort: 80
         allowInsecure: true
         transport: 'http2'
@@ -73,6 +73,12 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
           passwordSecretRef: 'container-registry-password'
         }
       ]
+      ingress: {
+        external: true
+        targetPort: 80
+        allowInsecure: true
+        transport: 'http2'
+      }
     }
     template: {
       containers: [
