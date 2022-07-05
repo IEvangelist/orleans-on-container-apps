@@ -56,3 +56,5 @@ module siloModule 'container-app.bicep' = {
     envVars: envVars
   }
 }
+
+output acrLoginServer string = acr.properties.loginServer
