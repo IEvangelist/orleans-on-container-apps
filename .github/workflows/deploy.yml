@@ -3,7 +3,7 @@ name: Deploy to Azure Container App
 on:
   push:
     branches:
-    - deploy
+    - main
 
 env:
   UNIQUE_APP_NAME: orleanscart

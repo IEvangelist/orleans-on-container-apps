@@ -16,25 +16,25 @@ await Host.CreateDefaultBuilder(args)
                 var siloPort = 11111;
                 var gatewayPort = 30000;
 
-                // are we running in app service?
-                if (!string.IsNullOrEmpty(context.Configuration["WEBSITE_PRIVATE_IP"]) && !string.IsNullOrEmpty(context.Configuration["WEBSITE_PRIVATE_PORTS"]))
+                // Is running as an App Service?
+                if (context.Configuration["WEBSITE_PRIVATE_IP"] is string ip &&
+                    context.Configuration["WEBSITE_PRIVATE_PORTS"] is string ports)
                 {
-                    var endpointAddress =
-                        IPAddress.Parse(context.Configuration["WEBSITE_PRIVATE_IP"]);
-                    var strPorts =
-                        context.Configuration["WEBSITE_PRIVATE_PORTS"].Split(',');
-                    if (strPorts.Length < 2)
+                    var endpointAddress = IPAddress.Parse(ip);
+                    var splitPorts = ports.Split(',');
+                    if (splitPorts.Length < 2)
+                    {
                         throw new Exception("Insufficient private ports configured.");
-                    siloPort = int.Parse(strPorts[0]);
-                    gatewayPort = int.Parse(strPorts[1]);
+                    }
 
-                    builder
-                        .ConfigureEndpoints(endpointAddress, siloPort, gatewayPort);
+                    siloPort = int.Parse(splitPorts[0]);
+                    gatewayPort = int.Parse(splitPorts[1]);
+
+                    builder.ConfigureEndpoints(endpointAddress, siloPort, gatewayPort);
                 }
-                else // looks like not, presume we're in Azure Container Apps.
+                else // Assume Azure Container Apps.
                 {
-                    builder
-                        .ConfigureEndpoints(siloPort, gatewayPort);
+                    builder.ConfigureEndpoints(siloPort, gatewayPort);
                 }
 
                 var connectionString =
