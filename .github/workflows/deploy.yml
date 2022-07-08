@@ -3,11 +3,10 @@ name: Deploy to Azure Container App
 on:
   push:
     branches:
-    - main
+    - deploy
 
 env:
   UNIQUE_APP_NAME: orleanscart
-  SILO_IMAGE_NAME: orleanscart-silo
   AZURE_RESOURCE_GROUP_NAME: orleans-resourcegroup
   AZURE_RESOURCE_GROUP_LOCATION: eastus
 
@@ -58,7 +57,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ${{ env.ACR_LOGIN_SERVER }}/${{ env.SILO_IMAGE_NAME }}:${{ github.sha }}
+        tags: ${{ env.ACR_LOGIN_SERVER }}/silo:${{ github.sha }}
         file: Silo/Dockerfile
 
     - name: Installing Container Apps extension
@@ -73,7 +72,7 @@ jobs:
       with:
         inlineScript: |
           az containerapp registry set -n ${{ env.UNIQUE_APP_NAME }} -g ${{ env.AZURE_RESOURCE_GROUP_NAME }} --server ${{ env.ACR_LOGIN_SERVER }}
-          az containerapp update -n ${{ env.UNIQUE_APP_NAME }} -g ${{ env.AZURE_RESOURCE_GROUP_NAME }} -i ${{ env.ACR_LOGIN_SERVER }}/${{ env.SILO_IMAGE_NAME }}:${{ github.sha }}
+          az containerapp update -n ${{ env.UNIQUE_APP_NAME }} -g ${{ env.AZURE_RESOURCE_GROUP_NAME }} -i ${{ env.ACR_LOGIN_SERVER }}/silo:${{ github.sha }}
 
     - name: Logout of Azure
       run: az logout
