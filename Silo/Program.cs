@@ -1,6 +1,16 @@
 // Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT License.
 
+#if DEBUG
+using System.Diagnostics;
+using Microsoft.IdentityModel.Logging;
+
+if (Debugger.IsAttached)
+{
+    IdentityModelEventSource.ShowPII = true;
+}
+#endif
+
 await Host.CreateDefaultBuilder(args)
     .UseOrleans(
         (context, builder) =>

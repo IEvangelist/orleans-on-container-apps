@@ -21,20 +21,20 @@ public sealed class Startup
     {
         services.AddMudServices();
 
-        services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApp(
-                    _configuration.GetSection("AzureAdB2C"));
-        services.AddControllersWithViews()
-            .AddMicrosoftIdentityUI();
+        //services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+        //        .AddMicrosoftIdentityWebApp(
+        //            _configuration.GetSection("AzureAdB2C"));
+        //services.AddControllersWithViews()
+        //    .AddMicrosoftIdentityUI();
 
-        services.AddAuthorization(options =>
-        {
-            // By default, all incoming requests will be authorized according to the default policy
-            options.FallbackPolicy = options.DefaultPolicy;
-        });
+        //services.AddAuthorization(options =>
+        //{
+        //    // By default, all incoming requests will be authorized according to the default policy
+        //    options.FallbackPolicy = options.DefaultPolicy;
+        //});
         services.AddRazorPages();
-        services.AddServerSideBlazor()
-            .AddMicrosoftIdentityConsentHandler();
+        services.AddServerSideBlazor();
+            //.AddMicrosoftIdentityConsentHandler();
 
         services.AddHttpContextAccessor();
         services.AddSingleton<ShoppingCartService>();
@@ -70,8 +70,8 @@ public sealed class Startup
         app.UseHttpsRedirection();
         app.UseStaticFiles();
         app.UseRouting();
-        app.UseAuthentication();
-        app.UseAuthorization();
+        //app.UseAuthentication();
+        //app.UseAuthorization();
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();

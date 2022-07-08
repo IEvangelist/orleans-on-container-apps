@@ -4,7 +4,7 @@ param containerAppEnvironmentId string
 param repositoryImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
 param envVars array = []
 param minReplicas int = 1
-param maxReplicas int = 10
+param maxReplicas int = 1
 param registry string
 param registryUsername string
 @secure()
