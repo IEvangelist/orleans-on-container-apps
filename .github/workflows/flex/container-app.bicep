@@ -32,7 +32,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
       ]
       ingress: {
         external: true
-        targetPort: 80
+        targetPort: 443
         allowInsecure: false
       }
     }
