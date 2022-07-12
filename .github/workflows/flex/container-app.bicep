@@ -3,8 +3,6 @@ param location string
 param containerAppEnvironmentId string
 param repositoryImage string = 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
 param envVars array = []
-param minReplicas int = 1
-param maxReplicas int = 10
 param registry string
 param registryUsername string
 @secure()
@@ -44,8 +42,8 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
         }
       ]
       scale: {
-        minReplicas: minReplicas
-        maxReplicas: maxReplicas
+        minReplicas: 1
+        maxReplicas: 1
       }
     }
   }
