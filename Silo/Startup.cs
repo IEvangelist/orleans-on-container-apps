@@ -23,7 +23,8 @@ public sealed class Startup
 
         services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApp(
-                    _configuration.GetSection("AzureAdB2C"));
+                    _configuration.GetSection("AzureAdB2C"),
+                    OpenIdConnectDefaults.AuthenticationScheme);
         services.AddControllersWithViews()
             .AddMicrosoftIdentityUI();
 
