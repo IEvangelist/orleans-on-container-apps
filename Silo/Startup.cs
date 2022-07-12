@@ -64,7 +64,7 @@ public sealed class Startup
             if (context.HttpContext.Request.Path == "/MicrosoftIdentity/Account/SignedOut")
             {
                 var host = context.HttpContext.Request.Host;
-                var url = $"{context.HttpContext.Request.Scheme}://{host}/home";
+                var url = $"{context.HttpContext.Request.Scheme}://{host}";
                 context.HttpContext.Response.Redirect(url);
             }
         }));
@@ -72,7 +72,6 @@ public sealed class Startup
         app.UseStaticFiles();
         app.UseRouting();
         app.UseAuthentication();
-        app.UseAuthorization();
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
