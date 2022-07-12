@@ -33,6 +33,10 @@ var envVars = [
   {
     name: 'ORLEANS_AZURE_STORAGE_CONNECTION_STRING'
     value: storageModule.outputs.connectionString
+  },
+  {
+    name: 'ASPNETCORE_ENVIRONMENT'
+    value: 'Development'
   }
 ]
 
