@@ -33,11 +33,13 @@ public sealed class Startup
                     {
                         cookie.SameSite = SameSiteMode.None;
                         cookie.SecurePolicy = CookieSecurePolicy.Always;
+                        cookie.IsEssential = true;
                     }
                 }
 
                 ConfigCookies(options.NonceCookie, options.CorrelationCookie);
-            });
+            },
+            subscribeToOpenIdConnectMiddlewareDiagnosticsEvents: true);
 
         services.AddControllersWithViews()
             .AddMicrosoftIdentityUI();
