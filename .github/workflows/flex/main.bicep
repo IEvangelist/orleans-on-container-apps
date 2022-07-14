@@ -35,12 +35,8 @@ var envVars = [
     value: storageModule.outputs.connectionString
   }
   {
-    name: 'ASPNETCORE_HTTPS_PORT'
-    value: '443'
-  }
-  {
     name: 'ASPNETCORE_ENVIRONMENT'
-    value: 'Development'
+    value: 'Production'
   }
 ]
 
