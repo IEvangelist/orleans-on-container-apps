@@ -26,11 +26,9 @@ public sealed class Startup
                     options =>
                     {
                         _configuration.Bind("AzureAdB2C", options);
-                    },
-                    options =>
-                    {
-                        options.Cookie.SameSite = SameSiteMode.None;
-                        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+
+                        options.CorrelationCookie.SameSite = SameSiteMode.None;
+                        options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.Always;
                     });
 
         services.AddControllersWithViews()
