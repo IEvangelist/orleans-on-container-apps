@@ -23,16 +23,19 @@ public sealed class Startup
 
         services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApp(
-                    _configuration.GetSection("AzureAdB2C"),
-                    OpenIdConnectDefaults.AuthenticationScheme);
+                    options =>
+                    {
+                        _configuration.Bind("AzureAdB2C", options);
+                    },
+                    options =>
+                    {
+                        options.Cookie.SameSite = SameSiteMode.None;
+                        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                    });
+
         services.AddControllersWithViews()
             .AddMicrosoftIdentityUI();
 
-        services.AddAuthorization(options =>
-        {
-            // By default, all incoming requests will be authorized according to the default policy
-            options.FallbackPolicy = options.DefaultPolicy;
-        });
         services.AddRazorPages();
         services.AddServerSideBlazor()
             .AddMicrosoftIdentityConsentHandler();
