@@ -23,13 +23,21 @@ public sealed class Startup
 
         services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApp(
-                    options =>
-                    {
-                        _configuration.Bind("AzureAdB2C", options);
+            options =>
+            {
+                _configuration.Bind("AzureAdB2C", options);
 
-                        options.CorrelationCookie.SameSite = SameSiteMode.None;
-                        options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.Always;
-                    });
+                static void ConfigCookies(params CookieBuilder[] cookies)
+                {
+                    foreach (var cookie in cookies)
+                    {
+                        cookie.SameSite = SameSiteMode.None;
+                        cookie.SecurePolicy = CookieSecurePolicy.Always;
+                    }
+                }
+
+                ConfigCookies(options.NonceCookie, options.CorrelationCookie);
+            });
 
         services.AddControllersWithViews()
             .AddMicrosoftIdentityUI();
