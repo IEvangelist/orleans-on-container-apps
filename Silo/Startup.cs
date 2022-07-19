@@ -26,6 +26,8 @@ public sealed class Startup
         {
             options.ForwardedHeaders =
                 ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            options.KnownNetworks.Clear();
+            options.KnownProxies.Clear();
         });
 
         services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
