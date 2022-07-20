@@ -13,7 +13,7 @@
         <MudItem xs="4">
             <MudStack AlignItems="AlignItems.End" Justify="Justify.SpaceBetween" Class="mud-height-full">
                 <MudText Typo="Typo.subtitle1">
-                    <b>@CartItem.TotalPrice.ToString("C2")</b>
+                    <b>$@CartItem.TotalPrice.ToString("N2")</b>
                 </MudText>
                 <MudButton OnClick=OnRemoveAsync Color="Color.Primary" Size="Size.Small">Remove</MudButton>
             </MudStack>

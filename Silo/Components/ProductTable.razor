@@ -42,7 +42,7 @@
             <MudTd DataLabel="Name">@product.Name</MudTd>
             <MudTd DataLabel="Description">@product.Description</MudTd>
             <MudTd DataLabel="Quantity">@product.Quantity.ToString("N0")</MudTd>
-            <MudTd DataLabel="Price">@product.UnitPrice.ToString("C2")</MudTd>
+            <MudTd DataLabel="Price">$@product.UnitPrice.ToString("N2")</MudTd>
         </RowTemplate>
         <RowEditingTemplate>
             <MudTd DataLabel="Name">
